@@ -59,16 +59,18 @@ export default function EditPostModal({ show, onClose, post, onSaved }) {
         title: editData.title.trim(),
         content: editData.content.trim(),
         userId: user.id,
-        // Note: Sections are intentionally not sent
+        sections: editData.sections.map((section) => ({
+          title: section.title.trim(),
+          body: section.body.trim(),
+        })),
       };
 
       await updatePost(post.id, updateData);
       const response = await getPost(post.id);
 
-      // Merge sections from original post since backend doesn't update them
       onSaved({
         ...response.data,
-        sections: post.sections, // Preserve original sections
+        sections: post.sections,
       });
 
       onClose();

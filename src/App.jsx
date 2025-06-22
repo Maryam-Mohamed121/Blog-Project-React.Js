@@ -1,12 +1,15 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import "bootstrap-icons/font/bootstrap-icons.css";
 import { NavBar, Layout } from "@components";
 import { HomePage, Login, Register, Profile, PostList } from "@pages";
 import AuthGurdRoute from "./components/AuthGurd";
 import PostForm from "./Pages/PostForm";
 import SinglePost from "./Pages/SinglePost";
+
 // import UserPosts from "./Pages/UserPosts";
-import "./style.css"; 
+import "./style.css";
 
 function App() {
   return (

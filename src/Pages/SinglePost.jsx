@@ -34,13 +34,7 @@ export default function SinglePost() {
   }, [id, user?.id]);
 
   const handleDelete = async () => {
-    if (
-      !window.confirm(
-        "Are you sure you want to delete this post? " +
-          "Posts with sections might not delete properly."
-      )
-    )
-      return;
+    if (!window.confirm("Are you sure you want to delete this post? ")) return;
 
     setDeleteError(null);
     try {
@@ -71,9 +65,9 @@ export default function SinglePost() {
         <div className="col-12 col-md-10 col-lg-8">
           <div className="card shadow">
             <div className="card-body">
-              <h1 className="mb-3">{post.title}</h1>
-              <p className="text-muted mb-2">
-                By <strong>{post.user?.name || "Unknown author"}</strong>
+              <h1 className="mb-3 text-center">{post.title}</h1>
+              <p className="text-muted mb-2 text-center">
+                By <strong>{user?.name || "Guesst author"}</strong>
               </p>
 
               <div className="mb-4">{post.content}</div>
