@@ -18,7 +18,8 @@ export default function Register() {
 
   const onSubmit = async (data) => {
     try {
-      await registerAPI(data);
+      const dataWithDate = { ...data, createdAt: new Date().toISOString() };
+      await registerAPI(dataWithDate);
       navigate("/login");
     } catch (e) {
       console.error(e);

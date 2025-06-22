@@ -70,21 +70,13 @@ export default function Profile() {
 
   return (
     <div className="container my-5">
+      {console.log("userData:", userData)}
       <div className="row justify-content-center">
         <div className="col-12 col-md-8 col-lg-6">
           <div className="card shadow">
             <div className="card-body">
               <div className="text-center mb-4">
                 <h2>User Profile</h2>
-                <div className="d-flex justify-content-end">
-                  <Button
-                    variant="outline-danger"
-                    size="sm"
-                    onClick={handleLogout}
-                  >
-                    Logout
-                  </Button>
-                </div>
               </div>
 
               <div className="text-center mb-4">
@@ -122,7 +114,7 @@ export default function Profile() {
 
               <div className="card mb-3">
                 <div className="card-header bg-light">
-                  <h5 className="mb-0">Personal Information</h5>
+                  <h5 className="mb-0 text-center">Personal Information</h5>
                 </div>
                 <ul className="list-group list-group-flush">
                   <li className="list-group-item d-flex justify-content-between align-items-center">
@@ -140,7 +132,12 @@ export default function Profile() {
                   <li className="list-group-item d-flex justify-content-between align-items-center">
                     <span className="fw-bold">Member Since</span>
                     <span>
-                      {new Date(userData.createdAt).toLocaleDateString()}
+                      {userData.createdAt &&
+                      !isNaN(new Date(userData.createdAt)) ? (
+                        new Date(userData.createdAt).toLocaleString()
+                      ) : (
+                        <span className="text-muted">Unknown</span>
+                      )}
                     </span>
                   </li>
                 </ul>
@@ -152,6 +149,11 @@ export default function Profile() {
                   onClick={() => navigate("/profile/edit")}
                 >
                   Edit Profile
+                </Button>
+              </div>
+              <div className="d-grid gap-2 mt-2">
+                <Button variant="outline-danger" onClick={handleLogout}>
+                  Logout
                 </Button>
               </div>
             </div>

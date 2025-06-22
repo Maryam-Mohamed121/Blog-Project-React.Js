@@ -7,8 +7,7 @@ import { HomePage, Login, Register, Profile, PostList } from "@pages";
 import AuthGurdRoute from "./components/AuthGurd";
 import PostForm from "./Pages/PostForm";
 import SinglePost from "./Pages/SinglePost";
-
-// import UserPosts from "./Pages/UserPosts";
+import Footer from "./components/Footer";
 import "./style.css";
 
 function App() {

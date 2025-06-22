@@ -2,35 +2,35 @@ import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
-    <footer className="bg-dark text-white py-5">
-      <div className="container">
+    <footer className="bg-light text-dark py-5">
+      <div className="container-fluid">
         <div className="row g-4">
           <div className="col-lg-4">
             <div className="mb-4">
-              <h4 className="text-white mb-3">MyBlog</h4>
+              <h4 className="text-dark mb-3">MyBlog</h4>
               <p className="text-muted">
                 Share your thoughts and connect with the world through your
                 personal blog.
               </p>
             </div>
             <div className="d-flex gap-3">
-              <a href="#" className="text-white fs-5">
+              <a href="#" className="text-dark fs-5">
                 <i className="bi bi-facebook"></i>
               </a>
-              <a href="#" className="text-white fs-5">
+              <a href="#" className="text-dark fs-5">
                 <i className="bi bi-twitter"></i>
               </a>
-              <a href="#" className="text-white fs-5">
+              <a href="#" className="text-dark fs-5">
                 <i className="bi bi-instagram"></i>
               </a>
-              <a href="#" className="text-white fs-5">
+              <a href="#" className="text-dark fs-5">
                 <i className="bi bi-linkedin"></i>
               </a>
             </div>
           </div>
 
           <div className="col-lg-2 col-md-4">
-            <h5 className="text-white mb-3">Explore</h5>
+            <h5 className="text-dark mb-3">Explore</h5>
             <ul className="nav flex-column">
               <li className="nav-item mb-2">
                 <Link to="/" className="nav-link p-0 text-muted">
@@ -43,30 +43,22 @@ export default function Footer() {
                 </Link>
               </li>
               <li className="nav-item mb-2">
-                <Link to="/about" className="nav-link p-0 text-muted">
-                  About
-                </Link>
+                <Link className="nav-link p-0 text-muted">About</Link>
               </li>
               <li className="nav-item">
-                <Link to="/contact" className="nav-link p-0 text-muted">
-                  Contact
-                </Link>
+                <Link className="nav-link p-0 text-muted">Contact</Link>
               </li>
             </ul>
           </div>
 
           <div className="col-lg-2 col-md-4">
-            <h5 className="text-white mb-3">Account</h5>
+            <h5 className="text-dark mb-3">Account</h5>
             <ul className="nav flex-column">
               <li className="nav-item mb-2">
-                <Link to="/login" className="nav-link p-0 text-muted">
-                  Login
-                </Link>
+                <Link className="nav-link p-0 text-muted">Login</Link>
               </li>
               <li className="nav-item mb-2">
-                <Link to="/register" className="nav-link p-0 text-muted">
-                  Register
-                </Link>
+                <Link className="nav-link p-0 text-muted">Register</Link>
               </li>
               <li className="nav-item">
                 <Link to="/profile" className="nav-link p-0 text-muted">
@@ -77,7 +69,7 @@ export default function Footer() {
           </div>
 
           <div className="col-lg-4 col-md-4">
-            <h5 className="text-white mb-3">Newsletter</h5>
+            <h5 className="text-dark mb-3">Newsletter</h5>
             <p className="text-muted">
               Subscribe to get updates on new features
             </p>
@@ -105,27 +97,22 @@ export default function Footer() {
         <div className="row">
           <div className="col-md-6 text-center text-md-start">
             <p className="mb-0 text-muted">
-              &copy; {new Date().getFullYear()} MyBlog. All rights reserved.
+              &copy; {new Date().getFullYear()} MyBlog. All rights reserved to
+              Maryam🤩
             </p>
           </div>
           <div className="col-md-6 text-center text-md-end">
             <ul className="list-inline mb-0">
               <li className="list-inline-item">
-                <Link to="/privacy" className="text-muted text-decoration-none">
-                  Privacy
-                </Link>
+                <Link className="text-muted text-decoration-none">Privacy</Link>
               </li>
               <li className="list-inline-item px-2">·</li>
               <li className="list-inline-item">
-                <Link to="/terms" className="text-muted text-decoration-none">
-                  Terms
-                </Link>
+                <Link className="text-muted text-decoration-none">Terms</Link>
               </li>
               <li className="list-inline-item px-2">·</li>
               <li className="list-inline-item">
-                <Link to="/contact" className="text-muted text-decoration-none">
-                  Contact
-                </Link>
+                <Link className="text-muted text-decoration-none">Contact</Link>
               </li>
             </ul>
           </div>

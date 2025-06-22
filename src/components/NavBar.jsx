@@ -1,18 +1,57 @@
 import { useAuthStore } from "@/store/auth";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { getMyPosts } from "@/api/posts";
 
 export default function Navbar() {
   const { token, clear } = useAuthStore();
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
+  const [allPosts, setAllPosts] = useState([]);
+  const [filteredPosts, setFilteredPosts] = useState([]);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const dropdownRef = useRef();
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
-      setSearchQuery("");
+  // Fetch current user's posts once when logged in
+  useEffect(() => {
+    if (token) {
+      getMyPosts()
+        .then((res) => setAllPosts(res.data))
+        .catch(() => setAllPosts([]));
+    } else {
+      setAllPosts([]);
     }
+  }, [token]);
+
+  // Filter posts by title as user types
+  useEffect(() => {
+    if (searchQuery.trim()) {
+      const filtered = allPosts.filter((post) =>
+        post.title.toLowerCase().includes(searchQuery.trim().toLowerCase())
+      );
+      setFilteredPosts(filtered);
+      setShowDropdown(true);
+    } else {
+      setFilteredPosts([]);
+      setShowDropdown(false);
+    }
+  }, [searchQuery, allPosts]);
+
+  // Hide dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleResultClick = (postId) => {
+    setSearchQuery("");
+    setShowDropdown(false);
+    navigate(`/posts/${postId}`);
   };
 
   return (
@@ -52,9 +91,11 @@ export default function Navbar() {
           </ul>
 
           <form
-            className="d-flex me-3 my-2 my-lg-0"
-            onSubmit={handleSearch}
+            className="d-flex me-3 my-2 my-lg-0 position-relative"
             role="search"
+            autoComplete="off"
+            ref={dropdownRef}
+            onSubmit={(e) => e.preventDefault()}
           >
             <div className="input-group">
               <input
@@ -64,11 +105,38 @@ export default function Navbar() {
                 aria-label="Search"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                onFocus={() => searchQuery && setShowDropdown(true)}
               />
-              <button className="btn btn-light" type="submit">
+              <button className="btn btn-light" type="button" tabIndex={-1}>
                 <i className="bi bi-search"></i>
               </button>
             </div>
+            {/* Dropdown results */}
+            {showDropdown && filteredPosts.length > 0 && (
+              <ul
+                className="list-group position-absolute w-100 shadow"
+                style={{ top: "100%", zIndex: 1000 }}
+              >
+                {filteredPosts.map((post) => (
+                  <li
+                    key={post.id}
+                    className="list-group-item list-group-item-action"
+                    style={{ cursor: "pointer" }}
+                    onClick={() => handleResultClick(post.id)}
+                  >
+                    {post.title}
+                  </li>
+                ))}
+              </ul>
+            )}
+            {showDropdown && searchQuery && filteredPosts.length === 0 && (
+              <ul
+                className="list-group position-absolute w-100 shadow"
+                style={{ top: "100%", zIndex: 1000 }}
+              >
+                <li className="list-group-item text-muted">No posts found</li>
+              </ul>
+            )}
           </form>
 
           <ul className="navbar-nav">

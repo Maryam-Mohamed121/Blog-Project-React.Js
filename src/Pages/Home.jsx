@@ -57,15 +57,12 @@ export default function Home() {
     <div className="container-fluid">
       <div className="row">
         {/* Main Content */}
+        <div className="text-center mb-5">
+          <h1 className="display-4 fw-bold">Welcome to MyBlog</h1>
+          <p className="lead text-muted">Manage and view your personal posts</p>
+        </div>
         <main className="col-lg-8">
           <div className="container py-5">
-            <div className="text-center mb-5">
-              <h1 className="display-4 fw-bold">Welcome to MyBlog</h1>
-              <p className="lead text-muted">
-                Manage and view your personal posts
-              </p>
-            </div>
-
             <div className="d-flex justify-content-between align-items-center mb-4">
               <h2 className="mb-0">Your Posts</h2>
               <Link to="/posts/new" className="btn btn-success">
@@ -180,7 +177,7 @@ export default function Home() {
         </main>
 
         {/* Sidebar */}
-        <aside className="col-lg-4 py-5 bg-light">
+        <aside className="col-lg-4 py-5 ">
           <RecentPostsSidebar />
         </aside>
       </div>

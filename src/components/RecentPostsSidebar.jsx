@@ -22,7 +22,7 @@ export default function RecentPostsSidebar() {
   }, []);
 
   return (
-    <div className="sticky-top pt-4">
+    <div className="pt-4" fixed-top>
       <div className="card shadow-sm mb-4">
         <div className="card-header bg-primary text-white">
           <h5 className="mb-0">Recent Activity</h5>
