@@ -95,7 +95,7 @@ export default function SinglePost() {
                 >
                   <i className="bi bi-trash me-1"></i> Delete
                 </button>
-                <Link to="/posts" className="btn btn-success">
+                <Link to="/posts" className="btn btn-primary">
                   <i className="bi bi-arrow-left me-1"></i> Back to Posts
                 </Link>
               </div>
@@ -104,7 +104,6 @@ export default function SinglePost() {
         </div>
       </div>
 
-      {/* Delete Confirmation Modal */}
       {showDeleteModal && (
         <div
           className="modal fade show"

@@ -4,37 +4,45 @@ import { useState, useEffect, useRef } from "react";
 import { getMyPosts } from "@/api/posts";
 
 export default function Navbar() {
-  const { token, clear } = useAuthStore();
+  const { token, user, clear } = useAuthStore();
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [allPosts, setAllPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState([]);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [loadingPosts, setLoadingPosts] = useState(false);
   const dropdownRef = useRef();
+  const debounceTimeout = useRef();
 
-  // Fetch current user's posts once when logged in
+  // Fetch current user's posts when token or user changes
   useEffect(() => {
     if (token) {
+      setLoadingPosts(true);
       getMyPosts()
         .then((res) => setAllPosts(res.data))
-        .catch(() => setAllPosts([]));
+        .catch(() => setAllPosts([]))
+        .finally(() => setLoadingPosts(false));
     } else {
       setAllPosts([]);
     }
-  }, [token]);
+  }, [token, user]);
 
-  // Filter posts by title as user types
+  // Debounced search
   useEffect(() => {
+    if (debounceTimeout.current) clearTimeout(debounceTimeout.current);
     if (searchQuery.trim()) {
-      const filtered = allPosts.filter((post) =>
-        post.title.toLowerCase().includes(searchQuery.trim().toLowerCase())
-      );
-      setFilteredPosts(filtered);
-      setShowDropdown(true);
+      debounceTimeout.current = setTimeout(() => {
+        const filtered = allPosts.filter((post) =>
+          post.title.toLowerCase().includes(searchQuery.trim().toLowerCase())
+        );
+        setFilteredPosts(filtered);
+        setShowDropdown(true);
+      }, 200);
     } else {
       setFilteredPosts([]);
       setShowDropdown(false);
     }
+    return () => clearTimeout(debounceTimeout.current);
   }, [searchQuery, allPosts]);
 
   // Hide dropdown when clicking outside
@@ -112,29 +120,29 @@ export default function Navbar() {
               </button>
             </div>
             {/* Dropdown results */}
-            {showDropdown && filteredPosts.length > 0 && (
+            {showDropdown && (
               <ul
                 className="list-group position-absolute w-100 shadow"
                 style={{ top: "100%", zIndex: 1000 }}
               >
-                {filteredPosts.map((post) => (
-                  <li
-                    key={post.id}
-                    className="list-group-item list-group-item-action"
-                    style={{ cursor: "pointer" }}
-                    onClick={() => handleResultClick(post.id)}
-                  >
-                    {post.title}
+                {loadingPosts ? (
+                  <li className="list-group-item text-center">
+                    <span className="spinner-border spinner-border-sm text-primary"></span>
                   </li>
-                ))}
-              </ul>
-            )}
-            {showDropdown && searchQuery && filteredPosts.length === 0 && (
-              <ul
-                className="list-group position-absolute w-100 shadow"
-                style={{ top: "100%", zIndex: 1000 }}
-              >
-                <li className="list-group-item text-muted">No posts found</li>
+                ) : filteredPosts.length > 0 ? (
+                  filteredPosts.map((post) => (
+                    <li
+                      key={post.id}
+                      className="list-group-item list-group-item-action"
+                      style={{ cursor: "pointer" }}
+                      onClick={() => handleResultClick(post.id)}
+                    >
+                      {post.title}
+                    </li>
+                  ))
+                ) : searchQuery ? (
+                  <li className="list-group-item text-muted">No posts found</li>
+                ) : null}
               </ul>
             )}
           </form>
@@ -162,7 +170,7 @@ export default function Navbar() {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="btn btn-success" to="/register">
+                  <Link className="btn btn-outline-light " to="/register">
                     <i className="bi bi-person-plus me-1"></i>
                     Register
                   </Link>

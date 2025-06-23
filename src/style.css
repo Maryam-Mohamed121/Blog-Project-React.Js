@@ -4,6 +4,8 @@
   --background: #f8f1f1;
   --text: #330604;
   --white: #fff;
+  --grey: #d3d3d3;
+  --black: #000;
 }
 
 body {
@@ -52,8 +54,8 @@ body {
 .card-body {
   background: var(--background) !important;
   color: var(--text) !important;
-  border: 1px solid var(--secondary) !important;
-  border-radius: 10px !important;
+  /* border: 1px solid var(--secondary) !important; */
+  border-radius: 15px !important;
 }
 
 .navbar,
@@ -84,9 +86,15 @@ a.text-muted {
 }
 
 a:hover {
-  color: var(--background) !important;
+  color: var(--secondary) !important;
 }
 
+.btn-success > a:hover {
+  color: var(--white) !important;
+}
+.btn-success > a {
+  color: var(--white) !important;
+}
 input,
 textarea,
 .form-control {
@@ -110,4 +118,15 @@ footer {
 hr,
 .border-secondary {
   border-color: var(--secondary) !important;
+}
+
+.custom-modal {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+}
+
+.custom-modal.show {
+  opacity: 1;
+  visibility: visible;
 }

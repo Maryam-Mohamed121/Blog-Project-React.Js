@@ -82,10 +82,10 @@ export default function RecentPostsSidebar() {
         </div>
         <div className="card-body">
           <Link to="/posts/new" className="btn btn-primary w-100 mb-2">
-            Create New Post
+            <i className="bi bi-plus-circle me-1"></i> Create New Post
           </Link>
           <Link to="/profile" className="btn btn-outline-primary w-100">
-            View Profile
+            <i className="bi bi-person me-1"></i> View Profile
           </Link>
         </div>
       </div>

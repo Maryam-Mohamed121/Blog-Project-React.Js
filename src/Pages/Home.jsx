@@ -65,8 +65,8 @@ export default function Home() {
           <div className="container py-5">
             <div className="d-flex justify-content-between align-items-center mb-4">
               <h2 className="mb-0">Your Posts</h2>
-              <Link to="/posts/new" className="btn btn-success">
-                Create New Post
+              <Link to="/posts/new" className="btn btn-outline-primary">
+                <i className="bi bi-plus-circle me-1"></i> Create New Post
               </Link>
             </div>
 
@@ -75,7 +75,8 @@ export default function Home() {
                 <div className="col-12 text-center py-5">
                   <h4>You haven't created any posts yet</h4>
                   <Link to="/posts/new" className="btn btn-primary mt-3">
-                    Create Your First Post
+                    <i className="bi bi-plus-circle me-1"></i> Create Your First
+                    Post
                   </Link>
                 </div>
               ) : (
@@ -109,12 +110,13 @@ export default function Home() {
                                 to={`/posts/${post.id}`}
                                 className="btn btn-primary"
                               >
-                                Read More
+                                <i className="bi bi-eye me-1"></i> Read More
                               </Link>
                               <Link
                                 to={`/posts/${post.id}/edit`}
                                 className="btn btn-outline-secondary"
                               >
+                                <i className="bi bi-pencil-square me-1"></i>{" "}
                                 Edit
                               </Link>
                             </div>

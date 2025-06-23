@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { useAuthStore } from "@/store/auth";
-import { getMe } from "@/api/user";
+import { getMe, updateUser } from "@/api/user";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import EditProfileModal from "@/components/EditProfileModal";
 
 export default function Profile() {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showEditModal, setShowEditModal] = useState(false);
   const { token, clear } = useAuthStore();
   const navigate = useNavigate();
 
@@ -36,6 +38,18 @@ export default function Profile() {
   const handleLogout = () => {
     clear();
     navigate("/login");
+  };
+
+  const handleSaveProfile = async (updatedData) => {
+    try {
+      // Call your API to update user info here
+      const updated = await updateUser(userData.id, updatedData);
+      setUserData(updated.data); // update UI with backend response
+      setShowEditModal(false);
+    } catch (err) {
+      console.error("Error updating profile:", err);
+      alert("Failed to update profile.");
+    }
   };
 
   if (loading) {
@@ -129,24 +143,13 @@ export default function Profile() {
                       )}
                     </span>
                   </li>
-                  <li className="list-group-item d-flex justify-content-between align-items-center">
-                    <span className="fw-bold">Member Since</span>
-                    <span>
-                      {userData.createdAt &&
-                      !isNaN(new Date(userData.createdAt)) ? (
-                        new Date(userData.createdAt).toLocaleString()
-                      ) : (
-                        <span className="text-muted">Unknown</span>
-                      )}
-                    </span>
-                  </li>
                 </ul>
               </div>
 
               <div className="d-grid gap-2">
                 <Button
                   variant="outline-primary"
-                  onClick={() => navigate("/profile/edit")}
+                  onClick={() => setShowEditModal(true)}
                 >
                   Edit Profile
                 </Button>
@@ -160,6 +163,12 @@ export default function Profile() {
           </div>
         </div>
       </div>
+      <EditProfileModal
+        show={showEditModal}
+        onClose={() => setShowEditModal(false)}
+        user={userData}
+        onSave={handleSaveProfile}
+      />
     </div>
   );
 }

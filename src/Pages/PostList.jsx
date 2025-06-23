@@ -45,7 +45,7 @@ export default function PostList() {
     <div className="container my-5">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h1 className="mb-0">My Posts</h1>
-        <Link to="/posts/new" className="btn btn-success">
+        <Link to="/posts/new" className="btn btn-outline-secondary">
           <i className="bi bi-plus-circle me-1"></i> Create New Post
         </Link>
       </div>

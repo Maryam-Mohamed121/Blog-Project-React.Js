@@ -12,3 +12,7 @@ export const getMe = async () => {
     throw new Error(error);
   }
 };
+
+export const updateUser = async (id, data) => {
+  return await APIClient.put(`/users/${id}`, data);
+};
