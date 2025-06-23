@@ -28,5 +28,3 @@ const AuthGurdRoute = () => {
 };
 
 export default AuthGurdRoute;
-
-// In your auth store

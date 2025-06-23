@@ -1,9 +1,113 @@
-.new-post-btn {
-  padding: 8px 16px;
-  background: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  margin: 10px 0;
+:root {
+  --primary: #330604;
+  --secondary: #86514f;
+  --background: #f8f1f1;
+  --text: #330604;
+  --white: #fff;
+}
+
+body {
+  background: var(--background);
+  color: var(--text);
+}
+.bg-light12 {
+  background: var(--white) !important;
+  color: var(--text) !important;
+}
+
+.bg-primary,
+.navbar.bg-primary,
+.card-header.bg-primary,
+.btn-primary,
+.btn-outline-primary {
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+  color: var(--white) !important;
+}
+
+.btn-primary,
+.btn-outline-primary {
+  color: var(--white) !important;
+}
+
+.btn-outline-primary {
+  background: transparent !important;
+  color: var(--primary) !important;
+  border-color: var(--primary) !important;
+}
+
+.btn-success {
+  background: var(--secondary) !important;
+  border-color: var(--secondary) !important;
+  color: var(--white) !important;
+}
+
+.btn-outline-secondary {
+  color: var(--secondary) !important;
+  border-color: var(--secondary) !important;
+  background: transparent !important;
+}
+
+.card,
+.card-body {
+  background: var(--background) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--secondary) !important;
+  border-radius: 10px !important;
+}
+
+.navbar,
+.card-header,
+footer,
+.bg-light {
+  background: var(--background) !important;
+  color: var(--text) !important;
+}
+
+.text-primary {
+  color: var(--primary) !important;
+}
+
+.text-secondary {
+  color: var(--secondary) !important;
+}
+
+.text-muted {
+  color: #a89b94 !important;
+}
+
+a,
+a.nav-link,
+a.text-dark,
+a.text-muted {
+  color: var(--white) !important;
+}
+
+a:hover {
+  color: var(--background) !important;
+}
+
+input,
+textarea,
+.form-control {
+  background: var(--white) !important;
+  color: var(--text) !important;
+  border-color: var(--secondary) !important;
+}
+
+input:focus,
+textarea:focus,
+.form-control:focus {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 0.2rem rgba(134, 81, 79, 0.25);
+}
+
+footer {
+  background: var(--background) !important;
+  color: var(--text) !important;
+}
+
+hr,
+.border-secondary {
+  border-color: var(--secondary) !important;
 }

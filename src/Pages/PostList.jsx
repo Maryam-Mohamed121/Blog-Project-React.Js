@@ -42,11 +42,11 @@ export default function PostList() {
   if (error) return <div className="alert alert-danger my-5">{error}</div>;
 
   return (
-    <div className="container">
+    <div className="container my-5">
       <div className="d-flex justify-content-between align-items-center mb-4">
         <h1 className="mb-0">My Posts</h1>
         <Link to="/posts/new" className="btn btn-success">
-          Create New Post
+          <i className="bi bi-plus-circle me-1"></i> Create New Post
         </Link>
       </div>
 
@@ -54,7 +54,7 @@ export default function PostList() {
         <div className="text-center py-4">
           <p>You haven't created any posts yet.</p>
           <Link to="/posts/new" className="btn btn-primary mt-2">
-            Create Your First Post
+            <i className="bi bi-plus-circle me-1"></i> Create Your First Post
           </Link>
         </div>
       ) : (
@@ -74,13 +74,13 @@ export default function PostList() {
                       to={`/posts/${post.id}`}
                       className="btn btn-outline-primary btn-sm"
                     >
-                      View
+                      <i className="bi bi-eye me-1"></i> View
                     </Link>
                     <Link
                       to={`/posts/${post.id}/edit`}
                       className="btn btn-outline-secondary btn-sm"
                     >
-                      Edit
+                      <i className="bi bi-pencil-square me-1"></i> Edit
                     </Link>
                   </div>
                 </div>

@@ -10,7 +10,7 @@ export default function RecentPostsSidebar() {
     const fetchPosts = async () => {
       try {
         const res = await getMyPosts();
-        setPosts(res.data.slice(0, 3)); // Only current user's first 3 posts
+        setPosts(res.data.slice(0, 3));
       } catch (error) {
         console.error("Error fetching posts:", error);
       } finally {
@@ -24,30 +24,34 @@ export default function RecentPostsSidebar() {
   return (
     <div className="pt-4" fixed-top>
       <div className="card shadow-sm mb-4">
-        <div className="card-header bg-primary text-white">
+        <div className="card-header bg-primary ">
           <h5 className="mb-0">Latest Posts</h5>
         </div>
         <div className="card-body">
           {loading ? (
             <div className="d-flex justify-content-center py-3">
-              <div className="spinner-border text-primary" role="status">
+              <div className="spinner-border" role="status">
                 <span className="visually-hidden">Loading...</span>
               </div>
             </div>
           ) : posts.length === 0 ? (
             <div className="text-center py-3">
-              <p className="text-muted">No posts found</p>
+              <p className="text-primary">No posts found</p>
             </div>
           ) : (
-            <div className="list-group list-group-flush">
+            <div className=" text-center  ">
               {posts.map((post) => (
                 <Link
+                  style={{
+                    color: "var(--primary) !important",
+                    ":hover": { color: "var(--secondary) !important" },
+                  }}
                   key={post.id}
                   to={`/posts/${post.id}`}
                   className="list-group-item list-group-item-action border-0 px-0 py-3"
                 >
                   <div className="d-flex align-items-center">
-                    {post.image && (
+                    {/* {post.image && (
                       <div className="flex-shrink-0 me-3">
                         <img
                           src={post.image}
@@ -60,7 +64,7 @@ export default function RecentPostsSidebar() {
                           }}
                         />
                       </div>
-                    )}
+                    )} */}
                     <div className="flex-grow-1">
                       <h6 className="mb-1">{post.title}</h6>
                     </div>

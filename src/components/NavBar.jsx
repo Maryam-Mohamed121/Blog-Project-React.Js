@@ -107,7 +107,7 @@ export default function Navbar() {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 onFocus={() => searchQuery && setShowDropdown(true)}
               />
-              <button className="btn btn-light" type="button" tabIndex={-1}>
+              <button className="btn btn-success" type="button" tabIndex={-1}>
                 <i className="bi bi-search"></i>
               </button>
             </div>
@@ -162,7 +162,7 @@ export default function Navbar() {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="btn btn-light" to="/register">
+                  <Link className="btn btn-success" to="/register">
                     <i className="bi bi-person-plus me-1"></i>
                     Register
                   </Link>

@@ -54,11 +54,11 @@ export default function Home() {
   if (error) return <div className="alert alert-danger my-5">{error}</div>;
 
   return (
-    <div className="container-fluid">
+    <div className="container-fluid ">
       <div className="row">
         {/* Main Content */}
-        <div className="text-center mb-5">
-          <h1 className="display-4 fw-bold">Welcome to MyBlog</h1>
+        <div className="text-center mb-3 mt-2">
+          <h1 className="display-4 fw-bold">Welcome to MaryLogs</h1>
           <p className="lead text-muted">Manage and view your personal posts</p>
         </div>
         <main className="col-lg-8">

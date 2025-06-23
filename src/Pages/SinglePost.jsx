@@ -13,6 +13,7 @@ export default function SinglePost() {
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [deleteError, setDeleteError] = useState(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -34,11 +35,10 @@ export default function SinglePost() {
   }, [id, user?.id]);
 
   const handleDelete = async () => {
-    if (!window.confirm("Are you sure you want to delete this post? ")) return;
-
     setDeleteError(null);
     try {
       await deletePost(id);
+      setShowDeleteModal(false);
       navigate("/posts", {
         state: { message: "Post deleted successfully" },
       });
@@ -67,7 +67,7 @@ export default function SinglePost() {
             <div className="card-body">
               <h1 className="mb-3 text-center">{post.title}</h1>
               <p className="text-muted mb-2 text-center">
-                By <strong>{user?.name || "Guesst author"}</strong>
+                By <strong>{user?.name || "Guest author"}</strong>
               </p>
 
               <div className="mb-4">{post.content}</div>
@@ -87,19 +87,61 @@ export default function SinglePost() {
               )}
               <div className="d-flex gap-2">
                 <button className="btn btn-primary" onClick={handleEdit}>
-                  Edit
+                  <i className="bi bi-pencil-square me-1"></i> Edit
                 </button>
-                <button className="btn btn-danger" onClick={handleDelete}>
-                  Delete
+                <button
+                  className="btn btn-danger"
+                  onClick={() => setShowDeleteModal(true)}
+                >
+                  <i className="bi bi-trash me-1"></i> Delete
                 </button>
-                <Link to="/posts" className="btn btn-secondary">
-                  Back to Posts
+                <Link to="/posts" className="btn btn-success">
+                  <i className="bi bi-arrow-left me-1"></i> Back to Posts
                 </Link>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteModal && (
+        <div
+          className="modal fade show"
+          style={{ display: "block", background: "rgba(0,0,0,0.5)" }}
+          tabIndex="-1"
+        >
+          <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title text-danger">
+                  <i className="bi bi-exclamation-triangle me-2"></i>
+                  Confirm Delete
+                </h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  onClick={() => setShowDeleteModal(false)}
+                ></button>
+              </div>
+              <div className="modal-body">
+                <p>Are you sure you want to delete this post?</p>
+              </div>
+              <div className="modal-footer">
+                <button
+                  className="btn btn-secondary"
+                  onClick={() => setShowDeleteModal(false)}
+                >
+                  Cancel
+                </button>
+                <button className="btn btn-danger" onClick={handleDelete}>
+                  <i className="bi bi-trash me-1"></i> Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <EditPostModal
         show={showModal}
