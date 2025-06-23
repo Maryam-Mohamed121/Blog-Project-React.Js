@@ -8,10 +8,10 @@ export const useAuthStore = create()(
     (set, get) => ({
       token: null,
       refreshToken: null,
-      user: null, // <-- add this line
+      user: null,
       loading: false,
       setTokens: (tokens) => set({ ...tokens }),
-      clear: () => set({ token: null, refreshToken: null, user: null }), // clear user too
+      clear: () => set({ token: null, refreshToken: null, user: null }),
       isValidTokens: async () => {
         set({ loading: true });
         const { token, refreshToken, clear } = get();

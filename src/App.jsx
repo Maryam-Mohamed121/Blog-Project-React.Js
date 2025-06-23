@@ -19,7 +19,6 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          {/* <Route path="/users/:id/posts" element={<UserPosts />} /> */}
           <Route path="/posts/:id" element={<SinglePost />} />
           <Route path="/posts/new" element={<PostForm />} />
           <Route path="/posts/:id/edit" element={<PostForm />} />
@@ -43,6 +42,7 @@ function App() {
           </Route>
         </Routes>
       </div>
+      <Footer />
     </Router>
   );
 }

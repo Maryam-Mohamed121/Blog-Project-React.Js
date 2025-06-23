@@ -97,7 +97,7 @@ export default function Home() {
                           <div className="card-body">
                             <h3 className="card-title">{post.title}</h3>
                             <small className="text-muted d-block mb-2">
-                              {new Date(post.createdAt).toLocaleDateString()}
+                              {`By ${user?.name || "Anonymous"}`}
                             </small>
                             <p className="card-text">
                               {post.content.length > 200
@@ -182,7 +182,7 @@ export default function Home() {
         </aside>
       </div>
 
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }

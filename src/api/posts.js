@@ -17,10 +17,6 @@ export const getAllPosts = async () => {
   return await APIClient.get("/posts");
 };
 
-export const getRecentPosts = async (limit = 5) => {
-  return await APIClient.get(`/posts/recent?limit=${limit}`);
-};
-
 export const getPost = async (id) => {
   const response = await APIClient.get(`/posts/${id}`);
   const { user } = useAuthStore.getState();
@@ -32,7 +28,9 @@ export const getPost = async (id) => {
   return response;
 };
 
-export const createPost = (data) => APIClient.post("/posts", data);
+export const createPost = (data) => {
+  return APIClient.post("/posts", data);
+};
 export const updatePost = async (id, data) => {
   try {
     const response = await APIClient.put(`/posts/${id}`, {
@@ -55,8 +53,7 @@ export const deletePost = async (id) => {
     } catch (retryError) {
       console.error("Second delete attempt failed:", retryError);
       throw new Error(
-        retryError.response?.data?.message ||
-          "Failed to delete post. It may have associated sections that prevent deletion."
+        retryError.response?.data?.message || "Failed to delete post. "
       );
     }
   }

@@ -1,31 +1,31 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getRecentPosts } from "@/api/posts";
+import { getMyPosts } from "@/api/posts";
 
 export default function RecentPostsSidebar() {
-  const [recentPosts, setRecentPosts] = useState([]);
+  const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchRecentPosts = async () => {
+    const fetchPosts = async () => {
       try {
-        const res = await getRecentPosts(5);
-        setRecentPosts(res.data);
+        const res = await getMyPosts();
+        setPosts(res.data.slice(0, 3)); // Only current user's first 3 posts
       } catch (error) {
-        console.error("Error fetching recent posts:", error);
+        console.error("Error fetching posts:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchRecentPosts();
+    fetchPosts();
   }, []);
 
   return (
     <div className="pt-4" fixed-top>
       <div className="card shadow-sm mb-4">
         <div className="card-header bg-primary text-white">
-          <h5 className="mb-0">Recent Activity</h5>
+          <h5 className="mb-0">Latest Posts</h5>
         </div>
         <div className="card-body">
           {loading ? (
@@ -34,13 +34,13 @@ export default function RecentPostsSidebar() {
                 <span className="visually-hidden">Loading...</span>
               </div>
             </div>
-          ) : recentPosts.length === 0 ? (
+          ) : posts.length === 0 ? (
             <div className="text-center py-3">
-              <p className="text-muted">No recent activity</p>
+              <p className="text-muted">No posts found</p>
             </div>
           ) : (
             <div className="list-group list-group-flush">
-              {recentPosts.map((post) => (
+              {posts.map((post) => (
                 <Link
                   key={post.id}
                   to={`/posts/${post.id}`}
@@ -63,9 +63,6 @@ export default function RecentPostsSidebar() {
                     )}
                     <div className="flex-grow-1">
                       <h6 className="mb-1">{post.title}</h6>
-                      <small className="text-muted">
-                        {new Date(post.createdAt).toLocaleDateString()}
-                      </small>
                     </div>
                   </div>
                 </Link>
